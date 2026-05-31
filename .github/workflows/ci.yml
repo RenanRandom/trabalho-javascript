@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Baixar Código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Instalar Dependências
         run: npm install
@@ -23,3 +25,4 @@ jobs:
           name: Relatório de Testes do TCD
           path: '**/test/*.js'
           reporter: mocha-json
+          token: ${{ secrets.GITHUB_TOKEN }}
