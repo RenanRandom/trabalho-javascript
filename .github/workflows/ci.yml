@@ -9,20 +9,9 @@ jobs:
     steps:
       - name: Baixar Código
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Instalar Dependências
         run: npm install
 
-      - name: Executar Testes Automatizados
+      - name: Executar Testes Automatizados e Gerar Relatório
         run: npm test
-
-      - name: Gerar Relatório de Testes (Marketplace Action)
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: Relatório de Testes do TCD
-          path: '**/test/*.js'
-          reporter: mocha-json
-          token: ${{ secrets.GITHUB_TOKEN }}
