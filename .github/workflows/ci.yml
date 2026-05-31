@@ -1,0 +1,25 @@
+name: Pipeline de Integração Contínua (CI)
+
+on: [push]
+
+jobs:
+  testes:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Baixar Código
+        uses: actions/checkout@v4
+
+      - name: Instalar Dependências
+        run: npm install
+
+      - name: Executar Testes Automatizados
+        run: npm test
+
+      - name: Gerar Relatório de Testes (Marketplace Action)
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Relatório de Testes do TCD
+          path: '**/test/*.js'
+          reporter: mocha-json
